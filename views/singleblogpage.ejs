@@ -1,0 +1,95 @@
+<!Doctype Html>
+<html>
+ <head>
+<title>My blog site</title> 
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+<style>
+	.comments{
+		background-color:rgb(220,220,220);
+		padding:5px 0 100px 0;
+		width:50%;
+		margin:0 auto 10px auto;
+	}
+.jumbotron
+{
+	background-color:#eaeae1;
+	margin-top:10px;
+}
+.form
+{
+	box-shadow:5px 1px 5px black;
+}
+form input
+{
+	display:block;
+}
+.container .singleblog
+{
+	border:2px solid black;
+}
+	.constnav ul
+	{
+		margin:0;
+		background-color:#AAF200;
+		color:black
+		color:white;
+	/*background-image:linear-gradient(to right, rgb(17, 153, 142), rgb(56, 239, 125));*/
+ 		height:8vh;
+		padding:2px;
+		border-radius:0 0 5px 5px;
+	}
+	.constnav ul li{
+		position:relative;
+		font-size:125%;
+		margin:0 20px;
+		list-style:none;
+		float:right;
+		padding:0 0.5vw;
+		top:50%;
+		transform:translateY(-50%);		
+	}
+	.constnav ul li a
+	{
+		color:black;
+		text-decoration:none;
+	}
+	.constnav ul li:hover
+	{
+		color:yellow;		
+	}
+	.constnav ul li a:hover
+	{
+		color:yellow;		
+	}
+	 </style>								</head>
+<body>
+	<%- include("partial/header") -%>
+	<div class="singleblog" style="width:50%;box-shadow:1px 1px 3px black;margin:2rem auto;padding:10px;">
+		<div style="width:80%;margin:0 auto;">
+		<h6 style="text-align:center;"><%=blog.title%></h6>
+		<img class="img-thumbnail" src="<%=blog.image%>" style="margin-bottom:1rem;text-align:center;width:100%;max-height:450px;">
+		<p style="text-align:left;">Date of publishing: <strong><i><%=String(blog.dateofpublish).substring(4,15)%></i></strong></p>
+			<p style="text-align:left;">Publisher Id: <strong><%=blog.username%></strong></p>	
+		<p style="text-align:left;"><%=blog.description%></p>
+			<%if(loggedinusername.username===blog.username){%>
+			<p class="btn btn-outline-info btn-sm" style="color:black;text-align:left;"><a href="/blogs/edit/<%=blog._id%>" >Edit</a></p>
+		<p style="text-align:left;color:black" class="btn btn-outline-danger btn-sm"><a href="/blogs/delete/<%=blog._id%>">Delete</a></p>	
+			<%}%>
+		</div>
+	</div>
+	<div class="comments">
+		<%if(typeof loggedinusername.username!="undefined" && loggedinusername.username!=''){%>
+		<form action="/addcomments/<%=blog._id%>" method="POST" style="width:98%;margin:0 auto;">
+			<textarea name="comment" style="width:100%;margin:0 auto;" placeholder="Leave your comment here"></textarea>
+			<input type="submit" style="margin:0 auto;" value="Post">
+		</form>
+		<%}%>
+		<%let blogtbl=blog%>
+		<%for (let y=0;y<blogtbl.comments.length;y++){%>
+			<div style="padding:10px 20px;">
+			<h6><%=blogtbl.comments[y].username%></h6>
+			<p><%=blogtbl.comments[y].comment%></p>
+				<hr>
+			</div>
+		<%}%>
+	</div>

@@ -1,0 +1,379 @@
+<link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!--=====================styles=====================================!-->
+
+<style>
+	body
+	{
+		width:100%;
+		height:100vh;
+		padding:0;
+		margin:0;
+		box-sizing:border-box;
+		font-family:Lobster, cursive;
+	}
+	#toparrowup
+	{
+	z-index:1;
+	position:absolute;
+	position:fixed;
+	right:2.5vw;
+	color:#6b4897;
+	bottom:2.5vw;
+	visibility:hidden;
+	}
+	.whole{
+		position:relative;
+		font-family:'Lobster', cursive;
+		width:100%;
+		height:92vh;
+	}
+	.floatingbar
+	{
+		overflow:hidden;
+		position:absolute;
+		background-color:rgb(50,50,50);
+		height:100%;
+		border-radius:0 20px 20px 0;
+	}
+	.floatingarrow
+	{
+		position:absolute;
+		background-color:rgb(50,50,50);
+		color:white;
+		height:7%;
+		width:2%;
+		font-size:140%;
+		border-radius:0 10px 10px 0;
+		top:10%;
+		transform:translateY(-50%);
+	}
+	.centerdiv{
+		border-radius:15px 15px 0 0;
+		/*background-color:rgb(240,240,240);*/
+		margin:0 auto;
+		width:60%;
+		height:100%;
+		overflow:scroll;
+		padding:2%;
+		box-sizing:border-box;
+	}
+	.resdetails
+	{
+		width:60%;
+		text-align:center;
+		background-color:yellow;
+	}
+	.fItem
+	{
+		position:relative;
+		width:100%;
+		/*background-color:#E8E8E8;*/
+		padding:15px;
+		margin:20px 0;
+		/*border-left:1px solid black;
+		border-bottom:1px solid black;
+		border-right:1px solid black;*/
+		box-sizing:border-box;
+		overflow:auto;
+		
+	}
+	.fItem img
+	{
+		border-radius:5%;
+	}
+	.fItem::-webkit-scrollbar 
+	{
+  		display: none;
+	}
+	.borders{
+		position:absolute;
+		border-left:0px solid black;
+		border-bottom:0px solid black;
+		overflow:hidden;
+		height:0;
+		width:0;	
+		transition:height 1s,width 1s 1s;
+		transition-delay:1s width;
+		left:0;
+	}
+	.itemImage
+	{
+		width:100px;
+		height:100px;
+	}
+	.itemDetails
+	{
+		display:inline-block;
+		vertical-align:top;
+		padding:0;
+		height:100px;
+		margin-left:1%;
+	}
+	.itemName{
+		margin:0;
+		line-height:50px;
+		padding:0;
+	}
+	.itemPrice
+	{
+		margin:0;
+	}
+	.fa-angle-down
+	{
+		position:absolute;
+		right:20px;
+		top:15px;
+	}
+	.fa-angle-up
+	{
+		position:absolute;
+		right:20px;
+		top:15px;
+		visibility:hidden;
+	}
+	.moreItemDetails
+	{
+		margin-top:10px;
+		transition:0.7s max-height;
+		max-height:0px;
+		overflow:hidden;
+	}
+	.nutrients
+	{
+		color:red;
+		margin-top:20px;
+	}
+	.nutrientNames
+	{
+		display:inline-block;
+		text-align:right;
+		line-height:10px;
+	}
+	.nutrientValues
+	{
+		display:inline-block;
+		line-height:10px;
+	}
+	.addnewitem
+	{
+		display:block;
+		text-align:center;
+		color:black;
+		text-decoration:none;
+	}
+	.addnewitem:hover
+	{
+		text-decoration:none;
+	}
+	.centerdiv::-webkit-scrollbar 
+	{
+	  display: none;
+	}
+	#statusdiv{
+		width:100%;
+		padding:10px 0;
+		text-align:center;
+		background-color:rgb(0,230,0);
+		color:white;
+	}
+</style>
+
+<!--=======================Tags=====================================!-->
+<div id="toparrowup"><i class="fa fa-arrow-circle-up fa-3x" aria-hidden="true"></i></div>
+<%if(status){%>
+		<div id="statusdiv"><i class="fa fa-check" aria-hidden="true"></i> <%=status%></div>	
+	<%}%>
+<%- include("partial/header") -%>
+<div class="whole">
+	<div class="floatingbar">
+		<div style="padding:20px 5px;position:absolute;text-align:center;">
+			<a href="res/ordersummary"><i style="color:white;" class="fa fa-server fa-2x" aria-hidden="true"></i></a>
+			<hr>
+			<a href="res/itemadd"><i style="color:white;" class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a>
+		</div>
+	</div>
+	<div class="floatingarrow">
+		>>>
+	</div>
+	<!--<div class="resdetails">
+		<%=rdet.restaurantName%>'s Catalog
+	</div>!-->
+	<div class="centerdiv">
+		<!--<div class="resdetails">
+			Hotel Buhari
+		</div>!-->	
+		<%if(catalog.length<1){%>
+			<div class="jumbotron" style="text-align:center;">Your restaurant menu catalog is empty!
+			</div>
+		<%}
+		else{%>
+			<%for(var i=0;i<catalog.length;i++){%>		
+				<div class="fItem">
+					<span class="borders"></span>
+					<i class="fa fa-angle-down fa-2x" aria-hiden="true"></i>
+					<i class="fa fa-angle-up fa-2x" aria-hiden="true"></i>
+					<img class="itemImage" src="<%=catalog[i].itemImage%>">
+					<div class="itemDetails">
+						<h3 class="itemName"><%=catalog[i].itemName%></h3>
+						<p class="itemPrice">Rs. <%=catalog[i].itemPrice%></p>
+					</div>
+					<div class="moreItemDetails">
+						<p class="decription"><%=catalog[i].itemDescription%></p>
+						<%if(catalog[i].itemNutrition){%>
+							Nutrition Values (per 100g)
+							<div class="nutrients">
+								<div class="nutrientNames">
+									<%for(let j in catalog[i].itemNutrition){%>
+									<p><%=j%>:</p>	
+									<%}%>
+								</div>
+								<div class="nutrientValues">
+									<%for(let j in catalog[i].itemNutrition){%>
+									<p><%=catalog[i].itemNutrition[j]%></p>	
+									<%}%>
+								</div>
+							</div>
+						<%}%>
+					</div>
+				</div>
+			<%}%>
+		<%}%>
+	</div>
+</div>
+
+<!--============================Scripts=============================!-->
+<script>
+	let rand;
+	let borders=document.querySelectorAll(".borders");
+	let floatingarrow=document.querySelector(".floatingarrow");
+	let floatingbar=document.querySelector(".floatingbar");
+	let fItems=document.querySelectorAll(".fItem");
+	let arrowdn=document.querySelectorAll(".fa-angle-down");
+	let arrowup=document.querySelectorAll(".fa-angle-up");
+	let content=document.querySelector(".moreItemDetails");
+	let centerdiv=document.querySelector(".centerdiv");
+	let toparrowup=document.querySelector("#toparrowup");
+	let hidden=true;
+	window.addEventListener("resize",function(){
+		let floatbarwidth=getComputedStyle(floatingbar).width;
+		floatingarrow.style.left=floatbarwidth;						  
+	});
+	floatingbar.style.width="0";
+	floatingarrow.addEventListener("click",function(){
+		if(hidden)
+		{
+			floatingbar.style.width="3%";
+			let floatbarwidth=getComputedStyle(floatingbar).width;
+			floatingarrow.style.left=floatbarwidth;
+			floatingarrow.innerHTML="<<<";
+			hidden=!hidden;
+		}
+		else
+		{
+			floatingbar.style.width="0";
+			let floatbarwidth=getComputedStyle(floatingbar).width;
+			floatingarrow.style.left=floatbarwidth;
+			floatingarrow.innerHTML=">>>";
+			hidden=!hidden;
+		}	
+	});
+	
+	for (let i=0;i<fItems.length;i++)
+	{
+		fItems[i].addEventListener("mouseover",function(){
+		fItems[i].children[3].style.transform="scale(1.2,1.2)";
+		fItems[i].children[3].style.transition="1s transform";	
+		});
+		fItems[i].addEventListener("mouseout",function(){
+		fItems[i].children[3].style.transform="";	
+		});
+	}
+	altshadows();
+	function altshadows()
+	{
+		for (var i=0;i<fItems.length;i++)
+		{
+			var c1=Math.floor(Math.random()*255);
+			var c2=Math.floor(Math.random()*255);
+			var c3=Math.floor(Math.random()*255);
+			randcolor="rgb("+c1+", "+c2+", "+c3+")";
+			fItems[i].style.boxShadow="3px 3px 4px "+randcolor;
+		}
+	}
+	//bordercolours();
+	function bordercolours()
+	{
+		for (var i=0;i<fItems.length;i++)
+		{
+			alert("hi");
+			var c1=Math.floor(Math.random()*255);
+			var c2=Math.floor(Math.random()*255);
+			var c3=Math.floor(Math.random()*255);									randcolor="rgb("+c1+", "+c2+", "+c3+")";
+			fItems[i].style.borderColor=randcolor;
+			if(i%2!=0)
+				fItems[i].style.borderLeftWidth="0";
+			else
+				fItems[i].style.borderRightWidth="0";
+		}
+	}
+	for(let i=0;i<fItems.length;i++)
+	{
+		/*fItems[i].addEventListener("mouseover",function(){
+			borders[i].style.borderWidth="5px";
+			borders[i].style.transition="width 2s 1s,height 1s";
+			borders[i].style.height="100%";
+			borders[i].style.width="100%";
+			borders[i].style.top="0";
+			//borders[i].style.bottom="";
+		});
+		fItems[i].addEventListener("mouseout",function(){
+			borders[i].style.transition="width 2s,height 1s 2s";
+			borders[i].style.height="0";
+			borders[i].style.width="0";
+			borders[i].style.bottom="0";
+			borders[i].style.left="0";
+			setInterval(function()
+			{
+				if(borders[i].style.)
+				borders[i].style.borderWidth="0px";
+			},1000);
+			
+				//borders[i].style.top="";
+			
+		});*/
+		arrowdn[i].addEventListener("click",function(){
+			fItems[i].children[fItems[i].children.length-1].style.maxHeight="500px";	
+			arrowdn[i].style.visibility="hidden";//or this.style....
+			arrowup[i].style.visibility="visible";
+		});	
+	}
+	for(let i=0;i<fItems.length;i++)
+	{
+		arrowup[i].addEventListener("click",function(){
+			fItems[i].children[fItems[i].children.length-1].style.maxHeight="0px";
+			arrowup[i].style.visibility="hidden";//or this.style....
+			arrowdn[i].style.visibility="visible";
+		});
+	}
+	
+	centerdiv.addEventListener("scroll",function(e){
+	if(centerdiv.scrollTop>(document.documentElement.clientHeight)/2)
+		{
+			toparrowup.style.visibility="visible";
+		}
+	else{
+		toparrowup.style.visibility="hidden";
+		}
+	});
+	toparrowup.addEventListener("click",function(){
+		scroll=setInterval(function(){
+		centerdiv.scrollTop-=10;
+		if(centerdiv.scrollTop==0){
+			clearInterval(scroll);
+		}
+	},1)
+	});
+	
+</script>

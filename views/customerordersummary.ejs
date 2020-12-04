@@ -1,0 +1,121 @@
+<style>
+	body
+	{
+		margin:0;
+		padding:0;
+		box-sizing:border-box;
+		font-family:Lobster, cursive;
+	}
+	.constnav ul
+	{
+		margin:0;
+		background-color:#AAF200;
+		color:black
+		color:white;
+	/*background-image:linear-gradient(to right, rgb(17, 153, 142), rgb(56, 239, 125));*/
+ 		height:8vh;
+		padding:2px;
+		border-radius:0 0 5px 5px;
+	}
+	.constnav ul li{
+		position:relative;
+		font-size:125%;
+		margin:0 20px;
+		list-style:none;
+		float:right;
+		padding:0 0.5vw;
+		top:50%;
+		transform:translateY(-50%);		
+	}
+	.constnav ul li a
+	{
+		color:black;
+		text-decoration:none;
+	}
+	.constnav ul li:hover
+	{
+		color:yellow;		
+	}
+	.constnav ul li a:hover
+	{
+		color:yellow;		
+	}
+	.outerorder{
+		position:relative;
+		box-sizing:border-box;
+		margin-bottom:20px;
+		width:100%;
+		padding:5px;
+		border:none;
+		border-radius:10px;
+		padding-left:30px;
+	}
+	.centerdiv{
+		margin:0 auto;
+		width:70%;
+		padding:2%;
+		box-sizing:border-box;
+	}
+	.date{
+		position:absolute;
+		top:0;
+		right:15px;
+		margin:0;
+		transform:translatey(-50%);
+		border-radius:7px;
+		background-color:white;
+		padding:1px 2px;
+	}
+	#statusdiv{
+		width:100%;
+		padding:10px 0;
+		text-align:center;
+		background-color:rgb(0,230,0);
+		color:white;
+	}
+</style>
+<%if(status){%>
+		<div id="statusdiv"><i class="fa fa-check" aria-hidden="true"></i> <%=status%></div>	
+	<%}%>
+<%- include("partial/header") -%>
+<%if(customer.length==0){%>
+	<div class="jumbotron" style="text-align:center;">No orders have been placed here yet!
+			</div>
+<%}else{%>
+<div class="centerdiv">
+<h2 style="text-align:center">Order Details</h2>
+<%for (var i=0;i<customer.orders.length;i++){%>
+<div class="outerorder">
+	<%var date=String(customer.orders[i].orderdate)%>
+	<p class="date"><%=date.substring(4,15)%> </p>
+	<p>Contact for this order: <%=customer.orders[i].tocontact%></p>
+	<p><%=customer.orders[i].toaddress%></p>
+	<h3>Order details</h3>
+	<%for(var j=0;j<customer.orders[i].orderdetails.length;j++){%>
+		<p style="color:blue"><%=j+1%>) <%=customer.orders[i].orderdetails[j].iName%> from <%=customer.orders[i].orderdetails[j].iRestaurantName%>   <%=customer.orders[i].orderdetails[j].iQuantity%> * <%=customer.orders[i].orderdetails[j].iSingleValue%> = <%=customer.orders[i].orderdetails[j].iValue%>
+		</p>
+	<%}%>
+	<h4>Total amount to pay: <%=customer.orders[i].totalamount%></h4>
+	<p>Mode: <%=customer.orders[i].paymentmode%></p>
+</div>
+<%}%>
+</div>	
+<%}%>
+
+<script>
+let outerorder = document.querySelectorAll(".outerorder"),
+	date	   = document.querySelectorAll(".date");
+altshadows();
+	function altshadows()
+	{
+		for (var i=0;i<outerorder.length;i++)
+		{
+			var c1=Math.floor(Math.random()*255);
+			var c2=Math.floor(Math.random()*255);
+			var c3=Math.floor(Math.random()*255);
+			randcolor="rgb("+c1+", "+c2+", "+c3+")";
+			outerorder[i].style.boxShadow="2px 2px 5px "+randcolor;
+			date[i].style.boxShadow="0px 0px 5px "+randcolor;
+		}
+	}
+</script>

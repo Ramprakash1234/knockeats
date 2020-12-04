@@ -1,0 +1,73 @@
+<!Doctype Html>
+<html>
+ <head>
+<title>My blog site</title> 
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<style>
+	
+.jumbotron
+{
+	background-color:#eaeae1;
+	margin-top:10px;
+}
+.form
+{
+	box-shadow:5px 1px 5px black;
+}
+form input
+{
+	display:block;
+}
+.container .singleblog
+{
+	border:2px solid black;
+} 
+	.constnav ul
+	{
+		margin:0;
+		background-color:#AAF200;
+		color:black
+		color:white;
+	/*background-image:linear-gradient(to right, rgb(17, 153, 142), rgb(56, 239, 125));*/
+ 		height:8vh;
+		padding:2px;
+		border-radius:0 0 5px 5px;
+	}
+	.constnav ul li{
+		position:relative;
+		font-size:125%;
+		margin:0 20px;
+		list-style:none;
+		float:right;
+		padding:0 0.5vw;
+		top:50%;
+		transform:translateY(-50%);		
+	}
+	.constnav ul li a
+	{
+		color:black;
+		text-decoration:none;
+	}
+	.constnav ul li:hover
+	{
+		color:yellow;		
+	}
+	.constnav ul li a:hover
+	{
+		color:yellow;		
+	}
+	 </style>								</head>
+<body>
+	<%- include('partial/header') -%>
+	<div class="middle" style="width:45%;margin:5rem auto 0 auto;box-shadow:1px 1px 5px blue;padding:2rem;">
+<h3 style="text-align:center">New blog</h3>
+<form action="/blogs/create" method="POST">
+	<label>Title</label>
+	<input type="text" name="title" placeholder="Enter blog title" style="display:block;width:100%;margin-bottom:1.5rem"> 
+	<label>URL</label>
+	<input type="text" name="image" placeholder="Enter image URL" style="display:block;width:100%;margin-bottom:1.5rem">
+	<label>Description</label>
+	<textarea name="description" style="display:block;width:100%;margin-bottom:1.5rem"></textarea>
+	<input type="submit" value="Add blog" class="btn btn-primary">
+</form>
+	</div>

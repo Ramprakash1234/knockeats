@@ -1,0 +1,177 @@
+body
+{
+	background-color:rgb(245, 245, 245);
+	margin:0;
+	padding:0;
+}
+#arrowup
+{
+	position:absolute;
+	position:fixed;
+	right:2.5vw;
+	color:#6b4897;
+	bottom:2.5vw;
+	visibility:hidden;
+}
+#navbar
+{
+	background-image:linear-gradient(to right, rgb(17, 153, 142), rgb(56, 239, 125));
+	color:black;
+}
+#navbar ul
+{
+	margin:0;
+}
+#navbar ul li{
+	list-style:none;
+	float:right;
+	padding:3vw 3vw 0 0;
+}
+#navbar ul li a
+{
+font-size:150%;
+font-family: 'Lobster', cursive;
+}
+.divtop
+{
+	background-image:linear-gradient(to right, rgb(17, 153, 142), rgb(56, 239, 125));
+	color:black;
+	margin:0;
+	height:100vh;
+	border-radius:0 0 20% 20%;
+	transition:border-radius 0.3s;
+}
+#bandc
+{
+	position:absolute;
+	font-size:150%;
+	top:50%;
+	left:50%;
+	line-height:10vh;
+	transform:translate(-50%,-50%);
+	text-align:center;
+	font-family: 'Lobster', cursive;
+}
+#caption
+{
+	font-size:120%;
+	font-weight:normal;
+}
+#searchdiv
+{
+	position:relative;
+}
+#searchbar
+{
+	font-size:20px;
+	display:inline-block;
+	border-radius:10px;
+	outline:none;
+	border:0px;
+	padding:10px 50px 10px 10px;
+	box-sizing:border-box;
+	height:35px;
+	width:100%;
+}
+#searchicon
+{
+	position:absolute;
+	right:0;
+	height:33px;
+	margin:1px 0;
+	border-radius:0 10px 10px 0;
+	outline:none;
+	border:none;
+	background-color:white;
+	padding:0 10px;
+	display:inline-block;
+}
+.fa-search
+{
+	color:black;
+}
+.divmid
+{
+	display:flex;
+	width:80%;
+	margin:2% auto;
+	padding:2%;
+	font-family: 'Lobster', cursive;
+}
+.portal
+{
+	position:relative;
+	background-color:#e8ffe8;
+	display:inline-block;
+	width:29.33%;
+	/*border:2px solid #581b98;*/
+	border-radius:2%;
+	padding:1%;
+	margin:4% 2% 0% 2%;
+	text-align:center;
+}
+.portal img
+{
+	width:85%;
+	height:35vh;
+	border-radius:30%;
+}
+h6
+{
+	padding:5px 5px 20px 5px;
+	font-size:150%;
+	border-bottom:1px solid black;
+}
+p
+{
+	font-size:120%;
+	margin-bottom:20%;
+	font-family:'Lobster Two';
+}
+.portalbtn
+{
+	position:absolute;
+	bottom:20px;
+	left:50%;
+	transform:translateX(-50%);
+	background-color:#AAF200;
+	color:black;
+	font-size:120%;
+	border:0px;
+	outline:none;
+	border-radius:50px;
+}
+.quotesdiv
+{
+	background-image:linear-gradient(to right, rgb(17, 153, 142), rgb(56, 239, 125));
+	display:inline-block;
+	font-size:20px;
+	width:90%;
+	color:black;
+	text-align:left;
+	font-family: 'Roboto', sans-serif;
+	padding:2% 2% 2% 10%;
+	border-radius:0 90px 90px 0;
+	margin-bottom:10%;
+	margin-right:0;
+}
+#quote
+{
+	display:inline-block;
+}
+#by
+{
+	display:block;
+	text-align:right;
+}
+@media only screen and (max-width: 800px) {
+	#bandc
+	{
+		font-size:80%;
+	}
+	.quotesdiv
+	{
+		font-size:10px;
+	}
+}
+

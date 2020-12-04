@@ -1,0 +1,114 @@
+<link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+	h1, h2, h3, h4, h5, h6{
+		padding:10px 0;
+		font-size:100%;
+	}
+	body{
+		padding:0;
+		margin:0;
+		box-sizing:border-box;
+		font-family:Lobster, cursive;
+	}
+	.constnav ul
+	{
+		margin:0;
+		background-color:#AAF200;
+		color:black;
+	/*background-image:linear-gradient(to right, rgb(17, 153, 142), rgb(56, 239, 125));*/
+ 		height:8vh;
+		padding:2px;
+		border-radius:0 0 5px 5px;
+	}
+	.constnav ul li{
+		position:relative;
+		font-size:125%;
+		margin:0 20px;
+		list-style:none;
+		float:right;
+		padding:0 0.5vw;
+		top:50%;
+		transform:translateY(-50%);		
+	}
+.constnav ul li:hover
+{
+	color:yellow;		
+}
+.constnav ul li a
+{
+	text-decoration:none;	
+}
+	.constnav ul li a:hover
+{
+	color:yellow;		
+}
+	.outerorder{
+		position:relative;
+		box-sizing:border-box;
+		margin-bottom:20px;
+		width:100%;
+		padding:5px;
+		border:none;
+		border-radius:10px;
+	}
+	.centerdiv{
+		margin:0 auto;
+		width:70%;
+		padding:2%;
+		box-sizing:border-box;
+	}
+	.date{
+		position:absolute;
+		top:0;
+		right:15px;
+		margin:0;
+		transform:translatey(-50%);
+		border-radius:7px;
+		background-color:white;
+		padding:1px 2px;
+	}
+</style>
+<%- include("partial/header") -%>
+<%if(restaurant.length==0){%>
+	<div class="jumbotron" style="text-align:center;">No orders have been placed here yet!
+			</div>
+<%}else{%>
+<div class="centerdiv">
+	<h1 style="text-align:center;">Order Details</h1>
+<%for (var i=0;i<restaurant.length;i++){%>
+<div class="outerorder">
+	<%var date=String(restaurant[i].orderdate)%>
+	<h2 class="date"><%=date.substring(4,15)%> </h2>
+	<h4>Customer Id: <%=restaurant[i].cusername%></h4>
+	<h4>Customer phone: <%=restaurant[i].tocontact%></h4>
+	<h4>Customer address: <%=restaurant[i].toaddress%></h4>
+	<h3>Ordered items</h3>
+	<%for(var j=0;j<restaurant[i].orderdetails.length;j++){%>
+		<p><%=restaurant[i].orderdetails[j].iName%>   <%=restaurant[i].orderdetails[j].iQuantity%> * <%=restaurant[i].orderdetails[j].iSingleValue%> = <%=restaurant[i].orderdetails[j].iValue%>
+		</p>
+	<%}%>
+	<h4>Total order amount: <%=restaurant[i].totalamount%></h4>
+	<h4>Mode: <%=restaurant[i].paymentmode%></h4>
+</div>
+<%}%>
+</div>	
+<%}%>
+
+<script>
+let outerorder = document.querySelectorAll(".outerorder"),
+	date	   = document.querySelectorAll(".date");
+altshadows();
+	function altshadows()
+	{
+		for (var i=0;i<outerorder.length;i++)
+		{
+			var c1=Math.floor(Math.random()*255);
+			var c2=Math.floor(Math.random()*255);
+			var c3=Math.floor(Math.random()*255);
+			randcolor="rgb("+c1+", "+c2+", "+c3+")";
+			outerorder[i].style.boxShadow="1px 1px 10px "+randcolor;
+			date[i].style.boxShadow="0px 0px 5px "+randcolor;
+		}
+	}
+</script>

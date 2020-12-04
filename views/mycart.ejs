@@ -1,0 +1,325 @@
+<link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+	body
+	{
+		width:100%;
+		padding:0;
+		margin:0;
+		box-sizing:border-box;
+		font-family:Lobster, cursive;
+	}
+	.constnav ul
+	{
+		margin:0;
+		background-color:#AAF200;
+		color:black
+		color:white;
+	/*background-image:linear-gradient(to right, rgb(17, 153, 142), rgb(56, 239, 125));*/
+ 		height:8vh;
+		padding:2px;
+		border-radius:0 0 5px 5px;
+	}
+	.constnav ul li{
+		position:relative;
+		font-size:125%;
+		margin:0 20px;
+		list-style:none;
+		float:right;
+		padding:0 0.5vw;
+		top:50%;
+		transform:translateY(-50%);		
+	}
+	.constnav ul li a
+	{
+		color:black;
+		text-decoration:none;
+	}
+	.constnav ul li:hover
+	{
+		color:yellow;		
+	}
+	.constnav ul li a:hover
+	{
+		color:yellow;		
+	}
+	.container
+	{
+		margin-top:10px;
+	}
+	.whole
+	{
+		max-height:75vh;
+		overflow:hidden;
+		font-family:'Lobster', cursive;
+		width:80%;
+		margin:10px auto 10px auto;
+	}
+	.leftwhole
+	{
+		max-height:75vh;
+		display:inline-block;
+		width:45%;
+		margin-right:2%;
+		overflow:scroll;
+	}
+	.leftwhole::-webkit-scrollbar 
+	{
+  		display: none;
+	}
+	.rightwhole
+	{
+		position:relative;
+		vertical-align:top;
+		padding-top:2%;
+		padding-left:2%;
+		height:75vh;
+		overflow:scroll;
+		display:inline-block;
+		width:53%;
+	}
+	.rightwhole::-webkit-scrollbar{
+		display:none;
+	}
+	.whole::-webkit-scrollbar 
+	{
+  		display: none;
+	}
+	.cartheading
+	{
+		z-index:1;
+		position:sticky;
+		top:10px;
+		width:80%;
+		height:10vh;
+		margin:10px auto 0 auto;
+		transition:0.3s height;
+		transition-delay:0s height;
+		background-color:#C9BDE6;
+		border-radius:10px;
+	}
+	.cartitemwithoutbtn
+	{
+		vertical-align:top;
+		position:relative;
+		padding-left:120px;
+		width:99%;
+		display:inline-block;
+		margin:10px auto;
+		border-radius:20px;
+		transition:0.2s width;
+	}
+	.innercartdetails
+	{
+		display:inline-block;
+	}
+	.cartitemimg{
+		position:absolute;
+		left:0;
+		width:8vw;
+		height:100%;
+		display:inline-block;
+		border:none;
+		outline:none;
+		border-radius:20px 0 ;
+	}
+	.cartitemname{
+		display:inline-block;
+	}
+	.cartitemwithbtn
+	{
+		height:auto;
+		position:relative;
+	}
+	.cartitembtn
+	{
+		text-align:center;
+		position:absolute;
+		right:15px;
+		top:10px;
+		z-index:1;
+		color:red;
+		border-radius:50px;
+		cursor:pointer;
+		
+		/*background-color:red;
+		display:inline-block;
+		width:0%;
+		height:18vh;
+		transition:0.2s width;
+		overflow:hidden;*/
+	}
+	#cartform{
+		display:none;
+		/*visibility:hidden;*/
+	}
+	#checkout{
+		border:0px solid black;
+		outline:none;
+		padding:2px 10px;
+		box-shadow:1px 1px 2px purple,1px 1px 2px black;
+	}
+	.boxdiv{
+		border:1px solid orange;
+		padding:5px;
+		position:relative;
+	}
+	.captionp
+	{
+		top:0;
+		color:blue;
+		padding:0 5px;
+		transform:translateY(-50%);
+		background-color:white;
+		position:absolute;
+	}
+	h5{
+		line-height:10vh;
+		text-align:right;
+		padding-right:5px;
+		box-sizing:border-box;
+	}
+</style>
+<%- include("partial/header") -%>
+	<%if(typeof(cartstring)=='undefined' || cartstring=="empty" ||totalamount==0){%>
+	<div class='container'>
+		<div class='jumbotron'>Your cart is empty</div>
+	</div>
+	<%}else{%>
+		<%var cartitems=JSON.parse(cartstring)%>
+		<div class='cartheading'><h5 style="color:black">Total amount to pay : Rs.<%=Number(totalamount)%>/-</h5></div>
+		<div class="whole">
+			<div class="leftwhole">
+			<%for(var i=0;i<cartitems.length;i++){%>
+				<div class="cartitemwithbtn">
+					<div class="cartitembtn"><h4>x</h4></div><div class="cartitemwithoutbtn">
+					<img style="" class='cartitemimg' src="<%=cartitems[i].iImage%>">
+					<h5 class='cartitemname'><strong><%=cartitems[i].iName%></strong></h5><br>
+					<p class="innercartdetails"><%=cartitems[i].iQuantity%> *</p>
+					<p class="innercartdetails"><%=cartitems[i].iSingleValue%> = Rs.</p>
+					<p class="innercartdetails"><%=cartitems[i].iValue%></p>
+					<p class="innercartdetails" style="display:none">
+						<%=cartitems[i].iRestaurantUsername%>
+					</p>
+					<p class="innercartdetails">from 
+						<%=cartitems[i].iRestaurantName%>
+					</p>
+					</div>	
+				</div>
+			<%}%>
+			</div><div class="rightwhole">
+				
+				<div class="boxdiv">
+			<p class="captionp">Contact<p>	
+			<p><i>Select contact number for this order:</i></p>
+				<input type="radio" class="phone" name="phone" checked> <p class="phonenoptag"style="display:inline-block;"> <%=customer.phone%></p><br>
+				<input type="radio" class="phone" name="phone"> <input type="text" id="phonenotxtbx" name="phonetext" placeholder="Phone number"></div><br>
+			<div class="boxdiv">
+			<p class="captionp">Address<p>
+				<%var address=customer.address;%>
+			<p><i>Select where to deliver?</i></p>
+				<%for(var x in address){
+					if(typeof address[x]=='string'){%>
+						<input type="radio" class="addressrdbtn" name="address"> <p class="addressptag" style="display:inline-block;"><%=address[x]%></p><br>
+					<%}else{
+						for(var i=0;i<address[x].length;i++){%>
+							<input type="radio" class="addressrdbtn" name="address" > <p class="addressptag" style="display:inline-block;"><%=address[x][i]%></p><br>
+						<%}
+					}
+				};%>
+				<input type="radio" class="addressrdbtn" name="address">
+				<textarea id="addresstxtbx" style="vertical-align:top;"placeholder="Address" rows="3" cols="50"></textarea>
+			</div> 
+				<div style="text-align:center;margin:10px;">
+						<a id="checkout" style="background-color:#C9BDE6;border-radius:10px">Place Order</a>
+				</div>
+			</div>
+		</div>	
+	<%}%>
+
+<form id="cartform"  action="/updateCart" method="POST">
+		<input type='text' name='itemName'>
+		<input type='text' name='purpose'>
+		<input type='submit' name='addtocart'>
+</form>
+<form id="placeorder" style="display:none;" action='/placeorder' method="POST">
+		<input type='text' name='phone'>
+		<input type='text' name='address'>
+		<input type='submit'>
+</form>
+
+
+<script>
+let cartitems		= document.querySelectorAll(".cartitemwithbtn"),
+	partialcartitems=document.querySelectorAll(".cartitemwithoutbtn"),	
+		delbtn 		= document.querySelectorAll(".cartitembtn"),
+		cartform	= document.querySelector("#cartform"),
+		checkout		 =document.querySelector("#checkout"),
+		phonerdbtns		 =document.querySelectorAll(".phone"),
+		addressrdbtns	 =document.querySelectorAll(".addressrdbtn"),
+		phonenotxtbx	 =document.querySelector("#phonenotxtbx"),
+		addresstxtbx	 =document.querySelector("#addresstxtbx"),
+		placeorder	 	 =document.querySelector("#placeorder"),
+		phonenoptag		 =document.querySelector(".phonenoptag"),
+		addressptag		 =document.querySelectorAll(".addressptag");
+	
+	addressrdbtns[0].checked=true;
+	/*for(let i=0;i<cartitems.length;i++){
+		cartitems[i].addEventListener("mouseover",function(){
+			delbtn[i].style.width="10%";
+			partialcartitems[i].style.width="90%";
+		});}*/
+	for(let i=0;i<partialcartitems.length;i++){
+		var c1=Math.floor(Math.random()*255);
+		var c2=Math.floor(Math.random()*255);
+		var c3=Math.floor(Math.random()*255);
+		randcolor="rgb("+c1+", "+c2+", "+c3+")";
+		partialcartitems[i].style.boxShadow="1px 1px 7px "+randcolor;
+		/*cartitems[i].addEventListener("mouseout",function(){
+			delbtn[i].style.width="0%";
+			partialcartitems[i].style.width="100%";
+		});*/
+	}
+	for(let i=0;i<delbtn.length;i++){
+		delbtn[i].addEventListener("click",function(){
+			cartform.children[0].value=delbtn[i].parentElement.children[1].children[1].innerText;
+	cartform.children[1].value="remove";
+			cartform.submit();
+		});
+	}
+	
+	checkout.addEventListener("click",function(e){
+		for(var i=0;i<phonerdbtns.length;i++){
+			if(phonerdbtns[phonerdbtns.length-1].checked){
+				if(phonenotxtbx.value!==''){
+					placeorder.children[0].value=phonenotxtbx.value;
+				}
+				else{
+					placeorder.children[0].value=phonenoptag.innerText;
+				}
+				break;
+			}else{
+				placeorder.children[0].value=phonenoptag.innerText;
+			}
+		}
+		for(var j=0;j<addressrdbtns.length;j++){
+			if(addressrdbtns[addressrdbtns.length-1].checked){
+				if(addresstxtbx.value!=''){
+					placeorder.children[1].value=addresstxtbx.value;
+				}else{
+					placeorder.children[1].value=addressptag[0].innerText;
+				}	
+			}else if(addressrdbtns[j].checked){
+				placeorder.children[1].value=addressptag[j].innerText;
+			}
+		}
+		placeorder.submit();
+	});
+</script>
+
+
+	
+	
+	
+	

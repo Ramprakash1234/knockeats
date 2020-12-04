@@ -1,0 +1,56 @@
+<link rel="stylesheet" href="styles.css">
+<style>
+	body
+{
+	margin:0;
+	padding:0;
+	width:100%;
+	height:100vh;
+}
+#outer
+{
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
+	text-align:center;
+}
+#brand
+{
+	font-size:300%;
+	box-sizing:border-box;
+	margin:2vh;
+}
+</style>
+<body>
+	<div id="outer">
+			<p id="brand">knock-eats</p>
+			<form id="frm" action="/home" method="GET">
+				<input id="sub" type="submit">	
+			</form>
+	</div>
+		<script>
+		let sub=document.getElementById("sub");
+		let frm=document.getElementById("frm");	
+		sub.style.visibility="hidden";	
+		let p=document.getElementById("brand");
+		let opac=1,dir="r";
+		setInterval(function(){
+  		if(dir==="f")
+    	{
+      		p.style.opacity=opac;
+      		opac=opac+0.1;
+			if(opac>1){opac=1;dir="r";}
+    	}
+		if(dir==="r")
+    	{
+			opac=opac-0.1;
+      		p.style.opacity=opac;
+			if(opac<0){opac=0;dir="f";}
+    	}
+		},100);
+		setTimeout(function(){
+			frm.submit();
+		},5000);	
+	</script>
+</body>

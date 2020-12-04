@@ -1,0 +1,205 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Lobster&family=Lobster+Two&display=swap" rel="stylesheet">
+
+<!--=====================styles=====================================!-->
+
+<style>
+body
+{
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
+	width:100vw;
+	font-family:Lobster, cursive;
+}
+.wholediv
+{
+background-color: gray;
+background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+	height:100vh;
+	width:100vw;
+	position:relative;
+}
+	
+	.leftdiv{
+		background-color: #b8c6db;
+background-image: linear-gradient(315deg, #b8c6db 0%, #f5f7fa 74%);
+		width:60%;
+		height:100%;
+		position:relative;
+		display:inline-block;
+	}
+	.leftcontent{
+		position:absolute;
+		top:50%;
+		left:50%;
+		transform:translate(-50%,-50%);
+	}
+	.rightdiv
+	{
+		vertical-align:top;
+		display:inline-block;
+		background-color:white;
+		width:40%;
+		height:100%;
+		padding-left:50px;
+		padding-top:30px;
+		position:relative;
+	}
+.inputdiv
+{
+	width:80%;
+	position:relative;
+	display:inline-block;
+}
+	
+input[type=text], select, input[type=password]
+{
+	border:0;
+	border-bottom:1px solid black;
+	outline:none;
+	margin:5% auto;
+ 	width:100%;
+	display:block;
+	background-color:transparent;
+	padding-left:10px;
+}
+	.required::placeholder{
+		color:red;
+	}	
+select{padding:0;}
+	
+#logbtndiv,a
+{
+	width:80%;
+	position:relative;
+	display:inline-block;
+	margin-bottom:3%;
+}
+input[type=submit]
+{
+	margin:5% auto 2% auto;
+ 	width:100%;
+	display:block;
+	outline:none;
+	border:0;
+	border-radius:10px;
+	background-color: #0093E9;
+	background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+	border-radius:5px;
+	color:black;
+	padding:2% 0;
+}
+	#errordiv{
+		width:100%;
+		padding:10px 0;
+		text-align:center;
+		background-color:rgb(230,0,0);
+		color:white;
+	}
+	body::-webkit-scrollbar 
+	{
+	  display: none;
+	}
+	#confirmationform{
+		display:none;
+	}
+	.required::placeholder{
+		color:red;
+	}
+</style>
+</head>
+
+<!--======================Coding====================================!-->
+<div class="wholediv">
+	<div class="leftdiv">
+		<div class="leftcontent" style="text-align:center;"><h2>Welcome to knockeats</h2>
+		<h5>Customer registration</h5></div>
+	</div><div class="rightdiv">
+		<!--<form id="registerform" action="/Login" method="POST" autocomplete="off">!-->
+			<div class="inputdiv">
+				<input class="visbleinputs" id="username" name="username" type="text" 			   							placeholder="Enter Username">
+			</div>
+			<div class="inputdiv">
+				<input class="visbleinputs" id="displayname" name="displayname" type="text" 			   							placeholder="Enter Displayname">
+			</div>
+			<div class="inputdiv">
+				<input class="visbleinputs" id="address" name="address" type="text" 			   							placeholder="Enter Address">
+			</div>
+			<div class="inputdiv">
+				<input class="visbleinputs" id="phone" name="phone" type="text" 			   						placeholder="Enter Phone">
+			</div>
+			<div class="inputdiv">
+				<input class="visbleinputs" id="pw" name="password" type="password" 										placeholder="Enter Password">
+			</div>
+			<div class="inputdiv">
+				<input class="visbleinputs" id="cnfpw" name="cnfpw" type="password" 										placeholder="Confirm Password">
+			</div>
+			<div id="logbtndiv">
+				<input class="visbleinputs" type="submit" value="Register">
+					<a style="color:purple;" href="Login">Already have an account?</a>
+			</div>
+	</div>		
+	</div>
+<form id="confirmationform" action="/cusregister" method="POST">
+	<input name="username" type="text">
+	<input name="displayname" type="text">
+	<input name="address" type="text">
+	<input name="phone" type="text">
+	<input name="password" type="text">
+	<input type="submit">
+</form>
+
+<!--======================Scripts====================================!-->
+<script rel="text/javascript">
+	var inputs= document.querySelectorAll(".visbleinputs"),
+	confirmationform= document.querySelector("#confirmationform");
+	
+	let reqstatus=[];
+	let passmatch;
+	for(var i=0;i<inputs.length-1;i++){
+		inputs[i].addEventListener("keyup",function(){
+			if(this.value!=""){
+				this.style.borderColor="black";
+			}
+		});	
+	}
+	
+	inputs[inputs.length-1].addEventListener("click",function(){
+		errcheck();
+		if(reqstatus.indexOf("fail")==-1){
+			if(inputs[4].value.length>5){
+				if(inputs[4].value===inputs[5].value){
+					for(var j=0;j<5;j++){
+					confirmationform.children[j].value=inputs[j].value;
+					}
+					confirmationform.submit();
+				}else{
+					alert("Wrong Passkey");
+				}	
+			}else{
+				alert("Passkey length should be atleast of 6 characters");
+			}
+		}
+	});
+	
+	function errcheck(){
+		for(var i=0;i<inputs.length-1;i++){
+			if(inputs[i].value==""){
+				inputs[i].classList.add("required");
+				inputs[i].style.borderColor="red";
+				reqstatus[i]="fail";
+			}
+			else{
+				inputs[i].classList.remove("required");
+				inputs[i].style.borderColor="";
+				reqstatus[i]="pass";
+			}
+		}
+		
+	}
+	
+</script>	

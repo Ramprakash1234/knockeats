@@ -1,0 +1,135 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Lobster&family=Lobster+Two&display=swap" rel="stylesheet">
+
+<!--=====================styles=====================================!-->
+
+<style>
+body
+{
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
+}
+.wholediv
+{
+background-color: #0093E9;
+background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+	height:100vh;
+	width:100vw;
+}
+.content
+{
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
+	padding:0;
+	margin:0;
+	background-color:transparent;
+	position:relative;
+	display:inline-block;
+	vertical-align: top;
+	font-size:100%;
+	width:30%;
+	height:60%;
+	text-align:center;
+}
+#cLoginForm
+{
+	position:relative;
+	margin:0;
+	background-color: #b8c6db;
+background-image: linear-gradient(315deg, #b8c6db 0%, #f5f7fa 74%);
+	width:100%;
+	background-color:yellow;
+	border-radius:10px;
+	margin-bottom:10px;
+}
+.inputdiv
+{
+	width:70%;
+	position:relative;
+	display:inline-block;
+}
+
+input[type=text], select, input[type=password]
+{
+	border:0;
+	border-bottom:1px solid black;
+	outline:none;
+	margin:5% auto;
+ 	width:100%;
+	display:block;
+	background-color:transparent;
+}	
+#logbtndiv,a
+{
+	width:70%;
+	position:relative;
+	display:inline-block;
+	margin-bottom:3%;
+}
+input[type=submit]
+{
+	margin:5% auto 2% auto;
+ 	width:100%;
+	display:block;
+	outline:none;
+	border:0;
+	border-radius:10px;
+	background-color: #0093E9;
+background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+
+	color:black;
+	padding:2% 0;
+}
+.caption{
+	background-color:yellow;
+		border-radius:10px 10px 0 0;
+	padding:10px 0;
+
+}
+</style>
+</head>
+
+<!--======================Coding====================================!-->
+
+<div class="wholediv">
+	
+	<div class="content">
+			<form id="cLoginForm" action="/sendotp" method="POST" autocomplete="off">
+					<h5 class="caption">Registeration Form</h5>	
+
+				<div class="inputdiv">
+					<select name="typeofuser" style="width:100%;">
+						<option>Customer</option>
+						<option>Restaurant</option>
+					</select>
+				</div>	
+				<div class="inputdiv">
+					<%if(username){%>
+						<input id="un" name="username" type="text" 			   							value="<%=username%>">
+					<%}else{%>
+					<input id="un" name="username" type="text" 			   							placeholder="Enter E-Mail Id">
+					<%}%>
+				</div>
+				<div id="logbtndiv">
+				<input type="submit" value="Send OTP">
+					<a style="color:purple" href="">Existing user?</a>
+				</div>
+			</form>	
+		<form id="cLoginForm" action="/vaidateotp" method="POST" autocomplete="off">
+				<div class="inputdiv">
+					<input id="un" name="otp" type="text" 			   							placeholder="Enter OTP">
+				</div>
+				<div id="logbtndiv">
+				<input type="submit" value="Validate OTP">
+				</div>
+			</form>
+		</div>
+	</div>
+<!--=====================Scripts====================================!-->
+<script rel="text/javascript">
+</script>	

@@ -1,0 +1,112 @@
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Lobster&family=Lobster+Two&display=swap" rel="stylesheet">
+<style>
+	a{
+		color:black;
+	}
+	#statusdiv{
+		width:100%;
+		padding:10px 0;
+		text-align:center;
+		background-color:rgb(0,230,0);
+		color:white;
+	}
+</style>
+<!--======================Coding=====================================!-->
+<%if(status){%>
+		<div id="statusdiv"><i class="fa fa-check" aria-hidden="true"></i> <%=status%></div>	
+	<%}%>
+<div id="arrowup"><i class="fa fa-arrow-circle-up fa-3x" aria-hidden="true"></i></div>
+<div id="navbar">
+	<ul>
+		<%if(loggedinusername.username=="" || typeof(loggedinusername.username)=='undefined'){%>
+		<li>
+			<a href="/Login">Login</a>
+		</li>	
+		<li>
+			<a href="/cusregister">Sign-Up</a>
+		</li>	
+		<%}else{%>
+			<li>
+				<a href="/logout">Logout <%=loggedinusername.username%></a>
+			</li>
+		<%}%>
+	</ul>
+</div>
+<div class="divtop">
+	<div id="bandc">
+    	<h1 class="display-4" id="brand">Knock-eats</h1>
+    	<p id="caption" style="margin:0;">Never stay hungry, coz we care for you!&#x1F609;		</p>
+		<div id="searchdiv">
+			<form action="/allresdetails" method="POST">
+			<input id="searchbar" name="location" type="text" placeholder="Enter location">
+			<button type ='submit' id="searchicon"><i class="fa fa-search" aria-hidden="true"></i></button>
+			</form>
+		</div>
+	</div>
+</div>
+<div>
+</div>
+<div class="divmid">
+	<div class="portal">
+		<img src="restaurant_portal.jpg">
+		<h6>Restaurant portal</h6>
+		<p class="portaldesc">Tying up with a food aggregator is no more a hectic job. Colloborate and manage your menu catalog on your own</p>
+		<button class="portalbtn">Knock-Knock</button>
+	</div>
+	<div class="portal">
+		<img src="admin.jpg">
+		<h6>Admin portal</h6>
+		<p class="portaldesc">Unlock to unveil all the restaurant and customer oriented information.</p>
+		<button class="portalbtn">Knock-Knock</button>
+	</div>
+	<div class="portal">
+		<img src="blog_portal.jpg">
+		<h6>Magazine</h6>
+		<p class="portaldesc">Publish your food related knowledge and win a chance to get featured in Knack-eats "Article of the day".</p>
+		<button class="portalbtn" >Knock-Knock</button>
+	</div>
+</div>
+<div class="quotesdiv">
+	<div id="quote"></div>
+	<div id="by"></div>
+</div>
+<div class="divbottom">
+	
+</div>
+
+<!--======================Scripts====================================!-->
+
+<script>
+	let pWidth,
+	quoteTag		= document.getElementById("quote"),
+	byTag			= document.getElementById("by"),
+	x				= <%-JSON.stringify(quotes)%>,
+	quoteIndex		= 0;
+	change();
+	function change(){
+		quoteTag.innerHTML='"' +x[quoteIndex].quote+ '"';
+		byTag.innerHTML="- "+x[quoteIndex].by,
+		pWidth = window.getComputedStyle(quoteTag, null);
+		byTag.style.width=pWidth.getPropertyValue("width");	
+		quoteIndex+=1;
+		if(quoteIndex==x.length){
+			quoteIndex=0;
+		}
+	}
+	setInterval(change,7000);
+	let portalbtn = document.querySelectorAll(".portalbtn");
+	let links	  = ["/res","","/blogs"]
+	let 		a = document.createElement('a');
+	for(let i=0;i<3;i++){
+		portalbtn[i].addEventListener("click",function(){
+			a.href=links[i];
+			a.click();
+	});	
+	}
+</script>
+<script src="styles.js"></script>
+
+

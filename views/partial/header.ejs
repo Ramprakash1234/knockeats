@@ -1,0 +1,48 @@
+<style>
+	.constnav ul
+	{
+		margin:0;
+		/*background-color:#AAF200;*/
+		background-color:rgb(50,50,50);
+	/*background-image:linear-gradient(to right, rgb(17, 153, 142), rgb(56, 239, 125));*/
+ 		height:8vh;
+		padding:2px;
+		border-radius:0 0 5px 5px;
+	}
+	.constnav ul li{
+		position:relative;
+		font-size:125%;
+		margin:0 20px;
+		list-style:none;
+		float:right;
+		padding:0 0.1vw;
+		top:50%;
+		transform:translateY(-50%);		
+	}
+	.constnav ul li a
+	{
+		color:white;
+		text-decoration:none;
+	}
+	.constnav ul li:hover
+	{
+		color:#AAF200;		
+	}
+	.constnav ul li a:hover
+	{
+		color:#AAF200;		
+	}
+</style><div class="constnav">
+	<ul>
+		<li style="float:left;"><a href="/home">Knockeats</a></li>
+		<%if(loggedinusername.username=="" || loggedinusername.username==undefined){%>
+			<li><a href="/Login">Login</a></li>
+		<%}else{%>
+			<li><a href="/logout">Logout</a></li>
+			<li><a style="color:white;">Signed in as <%=loggedinusername.username%></a></li>
+			<%if(loggedinusername.usertype=="customer"){%>
+				<li><a href="/cartdetails">Cart</a></li>
+			<%}%>
+		<%}%>
+	</ul>
+</div>

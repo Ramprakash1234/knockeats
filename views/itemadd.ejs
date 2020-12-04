@@ -1,0 +1,202 @@
+<link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+body
+{
+	background-color: #0093E9;
+background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 80%);
+	background-repeat:no-repeat;
+	background-size:100vw 100vh;
+	font-family: 'Lobster', cursive;
+	box-sizing:border-box;
+	margin:0;
+	padding:0;
+}
+
+.contentdiv
+{	
+}
+.formtopic
+{
+	border-radius:20px 20px 0 0;
+	margin:0;
+	padding:10px;
+	text-align:center;
+}	
+.formcontainer
+{
+	background-color: #b8c6db;
+background-image: linear-gradient(315deg, #b8c6db 0%, #f5f7fa 74%);
+	min-width:400px;
+	width:40%;
+	box-shadow:2px 2px 5px #FFFF00,2px 2px 5px black;
+	border-radius:20px 20px 0 0;
+	margin:70px auto 0 auto;
+}
+.itemdettxtbx
+{
+	background-color:transparent;
+	margin:15px auto;
+	display:block;
+	width:100%;
+	border:none;
+	outline:none;
+	border-radius:2px;
+	height:5%;
+	max-height:40px;
+	padding:0 10px;
+}
+select
+{
+	background-color:transparent;
+	width:50%;	
+	height:4%;
+	outline:none;
+	border:none;
+	border-radius:2px;
+	max-height:40px;
+	padding:0 5px;
+}
+.nutvaltxtbx
+{
+	background-color:transparent;
+	width:10%;	
+	height:4%;	
+	max-height:40px;
+	margin:10px 0 0px 5px;
+	display:inline-block;
+	border:none;
+	outline:none;
+	border-radius:2px;
+	padding:0 10px;
+}
+form
+{
+	margin:0 auto;
+	padding:10px;
+	width:75%;
+}
+form .plus
+{
+	border:1px solid black;
+	border-radius:55px;
+	outline:none;
+	margin:5px;
+}
+form .minus
+{
+	border:none;
+	outline:none;
+	height:4%;
+	font-size:200%;
+	line-height:2%;
+	vertical-align:bottom;
+	margin:0 5px;
+	padding:0;
+	background-color:transparent;
+	color:red;
+}
+span
+{
+	display:inline-block;
+	margin-top:10px;		
+}
+input[type="submit"]
+{
+	margin:15px auto;
+	display:block;
+	width:100%;
+	border:none;
+	outline:none;
+	border-radius:2px;
+	min-height:25px;
+	background-color: #0093E9;
+background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 80%);
+	height:5%;
+	max-height:40px;
+}
+	input[type='text']
+	{
+		border-bottom:1px solid black;
+		border-radius:0;
+	}
+</style>
+<%- include("partial/header") -%>
+<div class="contentdiv">
+	<div class="formcontainer">
+		<h3 class="formtopic">New catalog item</h3>
+		<form  name="newitem" autocomplete="off" action="/res/itemadd" method="POST">
+			<input type="text" class="itemdettxtbx" name="itemname" placeholder="Item Name">
+			<input type="text" class="itemdettxtbx" name="itemdescription" placeholder="Item Description">
+			<input type="text" class="itemdettxtbx" name="itemimage" placeholder="Item Image">
+			<input type="text" class="itemdettxtbx" name="itemprice" placeholder="Item Price">
+			<input type="text" class="itemdettxtbx" name="itemcategory" placeholder="Item Category">
+			<span>Add a Nutrition fact</span><input type="button" class="plus" value="+">
+			<input type="submit" value="Add to catalog">
+		</form>
+	</div>	
+</div>
+
+<script>
+	let form=document.querySelector("form");
+	let plus=document.querySelector(".plus");
+	
+	plus.addEventListener("click",function(){
+		var deftoptions=['Protein','Carbohydrates','Fat','Calories','Sugar'];
+		var options=[];
+		var allselect=document.getElementsByTagName("select");
+		for(var i=0;i<allselect.length;i++)
+		{
+if(deftoptions.indexOf(allselect[i].options[allselect[i].selectedIndex].value)!=-1)
+			   {		deftoptions.splice(deftoptions.indexOf(allselect[i].options[allselect[i].selectedIndex].value),1);
+			   }
+		}
+		for(var i=0;i<deftoptions.length;i++)
+		{
+			options.push(deftoptions[i]);		
+		}
+		if(options.length!=0)
+		{
+			var ndiv=document.createElement('div');
+			ndiv.setAttribute('class','ndiv');
+			var slct=document.createElement('select');
+			slct.setAttribute('name','nutritiontypes');
+			for(let i=0;i<options.length;i++)
+			{
+				var option=document.createElement('option');
+				option.setAttribute('value',options[i]);
+				option.innerHTML=options[i];
+				slct.append(option);
+			}
+			ndiv.append(slct);
+			slct.addEventListener("change",function(){
+				var allselect=document.getElementsByTagName("select");
+				for(var i=0;i<allselect.length;i++)
+				{
+					if(allselect[i]!=this)
+					{	if(allselect[i].options[allselect[i].selectedIndex].value==this.value)
+					{
+						allselect[i].parentElement.remove();
+					}						
+					}
+				}
+			});
+			var nutvalue=document.createElement('input');
+			nutvalue.setAttribute('type','text');
+			nutvalue.setAttribute('class','nutvaltxtbx');
+			nutvalue.setAttribute('name','nutritionvalues');
+			ndiv.append(nutvalue);
+			var minus=document.createElement('input');
+			minus.setAttribute('type','button');
+			minus.setAttribute('class','minus');
+			minus.setAttribute('onclick','removebtn(this);');
+			minus.value='-';
+			ndiv.append(minus);
+			form.children[form.children.length-3].before(ndiv);
+		}
+	});
+	function removebtn(btn)
+	{
+		btn.parentElement.remove();	
+	}
+</script>

@@ -1,0 +1,436 @@
+<link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+	body
+	{
+		width:100%;
+		padding:0;
+		margin:0;
+		box-sizing:border-box;
+		font-family:Lobster, cursive;
+	}
+	.constnav ul
+	{
+		margin:0;
+		background-color:#AAF200;
+		color:black
+		color:white;
+	/*background-image:linear-gradient(to right, rgb(17, 153, 142), rgb(56, 239, 125));*/
+ 		height:8vh;
+		padding:2px;
+		border-radius:0 0 5px 5px;
+	}
+	.constnav ul li{
+		position:relative;
+		font-size:125%;
+		margin:0 20px;
+		list-style:none;
+		float:right;
+		padding:0 0.5vw;
+		top:50%;
+		transform:translateY(-50%);		
+	}
+	.constnav ul li a
+	{
+		color:black;
+		text-decoration:none;
+	}
+	.constnav ul li:hover
+	{
+		color:yellow;		
+	}
+	.constnav ul li a:hover
+	{
+		color:yellow;		
+	}
+	.whole
+	{
+		font-family:'Lobster', cursive;
+		width:80%;
+		margin:0 auto;
+		min-height:99%;
+	}
+	.resDetails
+	{
+		overflow:hidden;
+		z-index:1;
+		position:sticky;
+		top:10px;
+		width:100%;
+		height:30vh;
+		margin:10px auto 0 auto;
+		transition:0.3s height;
+		transition-delay:0s height;
+background-image:linear-gradient(to right, rgb(168, 255, 120), rgb(120, 255, 214));
+		color:black;
+		border-radius:10px;
+		padding:10px 0 10px 20px;
+	}
+	.left{
+		position:relative;
+		border-right:1px solid black;
+		height:65vh;
+		width:30%;
+		display:inline-block;
+		vertical-align:top;
+	}
+	.categories{
+		position:relative;
+		width:50%;
+		top:50%;
+		left:50%;
+		transform:translate(-50%,-50%);
+		text-align:right;
+	}
+	#highlight
+	{
+		z-index:-1;
+		position:absolute;
+		background-image:linear-gradient(to right, rgb(168, 255, 120), rgb(120, 255, 214));
+		border-radius:0 10px 10px 0;
+		width:100%;
+	}
+	.right{
+		position:relative;
+		height:65vh;
+		width:70%;
+		display:inline-block;
+		overflow:scroll;
+		padding:10px;
+	}
+	#toparrowup
+	{
+	z-index:1;
+	position:absolute;
+	position:fixed;
+	color:#6b4897;
+	left:85%;
+	bottom:15px;
+	visibility:hidden;
+	}
+	.right::-webkit-scrollbar 
+	{
+  		display: none;
+	}
+	.fItem
+	{
+		position:relative;
+		width:95%;
+		padding:15px;
+		margin:20px auto;
+		/*border-left:1px solid black;
+		border-bottom:1px solid black;
+		border-right:1px solid black;*/
+		box-sizing:border-box;
+		overflow:auto;
+	}
+	.addsubbtn
+	{
+		position:absolute;
+		bottom:0;
+		left:4%;
+		border:0;
+		outline:0;
+	}
+	.addbtn, .subbtn{
+		height:27px;
+		width:20px;
+		text-align:left;
+		border:none;
+		outline:none;
+		line-height:10px;
+		font-size:100%;
+		display:inline-block;
+	}
+	.noofitem
+	{
+		width:25px;
+		height:25px;
+		border:none;
+		outline:none;
+		text-align:center;
+	}
+	p{
+		text-transform:capitalize;
+	}
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+  										-webkit-appearance: none;
+  										margin: 0;
+									}
+	.imageandnutvalues
+	{
+		
+	}
+	.itemImage
+	{
+		border-radius:5%;
+		width:100px;
+		height:100px;
+	}
+	.itemDetails
+	{
+		display:inline-block;
+		vertical-align:top;
+		padding:0;
+		height:100px;
+		margin-left:1%;
+	}
+	.itemName{
+		margin:0;
+		line-height:50px;
+		padding:0;
+	}
+	.itemPrice
+	{
+		margin:0;
+	}
+	.fItem::-webkit-scrollbar 
+	{ 
+  		display: none;
+	}
+	#cartform
+	{
+		visibility:hidden;
+	}
+	#arform
+	{
+		visibility:hidden;
+	}
+	.arlink{
+		position:absolute;
+		right:0;
+		bottom:0;
+		color:blue;
+		cursor:pointer;
+		
+	}
+</style>
+
+<%- include("partial/header") -%>
+<div class="whole">
+	<div class="resDetails">
+		<h1 id="hotelname"><%=restaurant.restaurantName%></h1>
+		<p id="hotelname"><%=restaurant.restaurantLocation%></p>
+		<p id="hotelname"><%=restaurant.restaurantTiming%></p>
+		<p id="hotelname"><%=restaurant.restaurantPhone%></p>
+	</div>
+	<div class="left">
+		<div class="categories">
+			<p id="highlight">.</p>
+			<%for(var i=0;i<categories.length;i++){%>
+				<p class="category"><%=categories[i].toUpperCase()%></p>
+			<%}%>
+		</div>
+	</div><div class="right"><div id="toparrowup"><i class="fa fa-arrow-circle-up fa-3x" aria-hidden="true"></i></div>
+		<%for(var j=0;j<categories.length;j++){%>
+		<div class="categorywiseitems">
+			<h3 style="display:none;"><%=categories[j]%></h3>
+		<%for(var i=0;i<catalog.length;i++){%>				
+<%if(catalog[i].category.toLowerCase()===categories[j].toLowerCase()){%>
+				<div class="fItem" >
+					<div class="addsubbtn">
+					<button class="subbtn">-</button><input style="background-color:white;color:black" class="noofitem" type="number" disabled><button class="addbtn">+</button>	
+					</div>
+					<img class="itemImage" src="<%=catalog[i].itemImage%>">
+					<div class="itemDetails">
+						<h3 class="itemName"><%=catalog[i].itemName%></h3>
+						<p class="itemPrice">Rs. <%=catalog[i].itemPrice%></p>
+						
+						<p class="decription">														 <%=catalog[i].itemDescription%></p>
+						<%let nooforder=0,orderstatus="None have bought this";%>
+						<%for(var z=0;z<resorder.length;z++){%>
+							<%for(var n=0;n<resorder[z].orderdetails.length;n++){%>
+								<%if(resorder[z].orderdetails[n].iName===catalog[i].itemName){%>
+						<%nooforder+=1;%>
+						<%}%>
+								
+							<%}%>
+						<%}%>
+							<%if(nooforder>4){%>
+								<%orderstatus="Mostly Liked"%>
+							<%}else if(nooforder>0){%>
+								<%orderstatus="Often sold"%>
+							<%}%>
+						<p >Overall Popularity:<span style="color:orange;"><%=orderstatus%>(<%=nooforder%>)</span></p>
+						
+						
+						<%let todayorder=0,todayorderstatus="None have bought this";%>
+						<%for(var zz=0;zz<resorder.length;zz++){%>
+							<%for(var nn=0;nn<resorder[zz].orderdetails.length;nn++){%>
+								<%if(resorder[zz].orderdetails[nn].iName===catalog[i].itemName && (String(resorder[zz].orderdate).substring(4,15))==String(new Date()).substring(4,15)){%>
+						<%todayorder+=1;%>
+						<%}%>
+								
+							<%}%>
+						<%}%>
+							<%if(todayorder>0){%>
+								<%todayorderstatus="Day special"%>
+							<%}%>
+									<p >Daily Popularity:<span style="color:green;"><%=todayorderstatus%>(<%=todayorder%>)</span></p>
+						
+					</div>
+					<p class="arlink">View in AR mode</p>
+				</div>
+				<hr>
+<%}%>	
+			<%}%>
+	</div>
+		<%}%>
+	</div>
+	<form id="cartform" action="/updateCart" method="POST">
+		<input type='text' name='itemName'>
+		<input type='text' name='itemquantity'>
+		<input type='text' name='itemvalue'>
+		<input type='text' name='itemimage'>
+		<input type='text' name='purpose' value="insert">
+		<input type="text" name="hotelname">
+		<input type="text" name="hotelusername">
+		<input type='submit' name='addtocart'>
+	</form>
+	<form id="arform" action="/ar" method="POST">
+		<input type="text" name="imageaddress">
+	</form>
+</div>
+
+<script>
+let resDetails=document.querySelector(".resDetails"),
+	left=document.querySelector(".left"),
+	right=document.querySelector(".right"),
+	toparrowup=document.querySelector("#toparrowup"),
+	fItems=document.querySelectorAll(".fItem"),
+	addbtn=document.querySelectorAll(".addbtn"),
+	subbtn=document.querySelectorAll(".subbtn"),
+	category=document.querySelectorAll(".category"),
+	highlight=document.querySelector("#highlight"),
+	cartform=document.querySelector("#cartform"),
+	categorywiseitems=document.querySelectorAll(".categorywiseitems"),
+	arlinks=document.querySelectorAll(".arlink"),
+	arform=document.querySelector("#arform");
+
+	var cartdet=<%- JSON.stringify(cartstring)%>;
+	var catalog=<%- JSON.stringify(catalog)%>;
+	var restaurant=<%- JSON.stringify(restaurant)%>;
+	
+	
+	for(var i=0;i<fItems.length;i++){
+		for(var k=0;k<cartdet.length;k++){
+		if((cartdet[k].iName==fItems[i].children[2].children[0].innerText) && (cartdet[k].iRestaurantUsername==restaurant.restaurantUsername)){
+			fItems[i].children[0].children[1].value=cartdet[k].iQuantity;				}
+		}
+	}
+	for (var j=0;j<fItems.length;j++){
+		if(fItems[j].children[0].children[1].value==""){
+			fItems[j].children[0].children[1].value=0;
+		}
+	}	
+	for(let i=0;i<arlinks.length;i++){
+		arlinks[i].addEventListener("click",function(){
+	arform.children[0].value=arlinks[i].parentElement.children[1].src;
+			arform.submit();
+		});
+	}	
+	addeventsforbtns();
+
+document.addEventListener("scroll",function(){
+	if(document.body.scrollTop>0){
+		resDetails.style.height="20vh";
+		left.style.height="78vh";
+		right.style.height="78vh";
+	}
+	else{
+		resDetails.style.height="30vh";
+		left.style.height="65vh";
+		right.style.height="65vh";
+	}
+});
+	
+right.addEventListener("scroll",function(){
+	let stop=false;
+	for(let i=0;i<categorywiseitems.length;i++){
+		//alert((fItems[i].offsetTop)-(right.scrollTop));
+		//alert(fItems[i].offsetTop-right.scrollTop);
+		var categoryheight=getComputedStyle(categorywiseitems[i]).height;
+		var screenpos=(categorywiseitems[i].offsetTop) + (Number ( categoryheight.slice(0,categoryheight.length - 2)))-(right.scrollTop)- 250;
+		if(screenpos>0 && !(stop)){
+			for(let j=0;j<category.length;j++){
+			if(category[j].innerText.toLowerCase()===categorywiseitems[i].children[0].innerHTML.toLowerCase()){
+					highlight.style.top=category[j].offsetTop+"px";
+					stop=true;
+					break;
+				}
+			}
+		}
+	}
+	if(right.scrollTop!=0){
+		document.body.scrollTop=80;
+	}
+	else{
+		document.body.scrollTop=0;
+	}
+});
+
+toparrowup.addEventListener("click",function(){
+		scrolldiv=setInterval(function(){
+		right.scrollTop-=10;
+			if(right.scrollTop==0){
+				clearInterval(scrolldiv);
+			}
+		},1)
+});
+	
+function addeventsforbtns(){
+	for(let x=0;x<fItems.length;x++){
+		addbtn[x].addEventListener("click",function(e){
+			if(fItems[x].children[0].children[1].value=="" || fItems[x].children[0].children[1].value<0){
+				var quantity=1;
+				fItems[x].children[0].children[1].value=quantity;
+		cartform.children[0].value=fItems[x].children[2].children[0].innerText;
+		cartform.children[1].value=quantity;
+cartform.children[2].value=Number(fItems[x].children[2].children[1].innerText.substring(4));
+				cartform.children[3].value=fItems[x].children[1].src;
+				cartform.children[5].value=restaurant.restaurantName;
+				cartform.children[6].value=restaurant.restaurantUsername;
+				cartform.submit();			
+			}
+			else{
+				var quantity=Number(fItems[x].children[0].children[1].value)+1;
+				fItems[x].children[0].children[1].value=quantity;
+		cartform.children[0].value=fItems[x].children[2].children[0].innerText;
+	cartform.children[1].value=quantity;
+cartform.children[2].value=Number(fItems[x].children[2].children[1].innerText.substring(4));
+				cartform.children[3].value=fItems[x].children[1].src;
+				cartform.children[5].value=restaurant.restaurantName;
+				cartform.children[6].value=restaurant.restaurantUsername;
+		cartform.submit();	
+			}
+		});
+		
+		subbtn[x].addEventListener('click',function(e){
+			if(fItems[x].children[0].children[1].value=="" || Number(fItems[x].children[0].children[1].value)<=0){
+				var quantity=0;
+				fItems[x].children[0].children[1].value=quantity;
+		cartform.children[0].value=fItems[x].children[2].children[0].innerText;
+		cartform.children[1].value=quantity;
+cartform.children[2].value=Number(fItems[x].children[2].children[1].innerText.substring(4));
+				cartform.children[3].value=fItems[x].children[1].src;
+				cartform.children[5].value=restaurant.restaurantName;
+				cartform.children[6].value=restaurant.restaurantUsername;
+				cartform.submit();			
+			}
+			else{
+				var quantity=Number(fItems[x].children[0].children[1].value)-1;
+				fItems[x].children[0].children[1].value=quantity;
+		cartform.children[0].value=fItems[x].children[2].children[0].innerText;
+	cartform.children[1].value=quantity;
+cartform.children[2].value=Number(fItems[x].children[2].children[1].innerText.substring(4));
+				cartform.children[3].value=fItems[x].children[1].src;
+				cartform.children[5].value=restaurant.restaurantName;
+				cartform.children[6].value=restaurant.restaurantUsername;
+		cartform.submit();	
+			}
+		});	
+	}	
+}
+</script>
