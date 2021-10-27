@@ -36,7 +36,8 @@ mongoose.set('useNewUrlParser',true);
 mongoose.set('useUnifiedTopology',true);
 mongoose.set('useFindAndModify',false);
 
-mongoose.connect("mongodb://localhost/knockeats");
+//mongoose.connect("mongodb://localhost/knockeats");
+mongoose.connect("mongodb+srv://Ramprakash:KFHfN5EapMZp3Xnp@cluster0.ocdtt.mongodb.net/knockeats?retryWrites=true&w=majority");
 let cusauthschema=new mongoose.Schema({
 	username:String,
 	password:String
